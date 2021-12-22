@@ -23,6 +23,7 @@ const SearchBooks = () => {
     return () => saveBookIds(savedBookIds);
   });
 
+
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -40,15 +41,15 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
       
-      console.log(items);
-
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ['No author to display'],
         title: book.volumeInfo.title,
-        description: book.volumeInfo.description || ['No description available'],
+        description: book.volumeInfo.description || 'No description available',
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
+
+      console.log(bookData);
 
       setSearchedBooks(bookData);
       setSearchInput('');

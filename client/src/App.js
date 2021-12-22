@@ -28,7 +28,19 @@ function App() {
 
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies:{
+        User: {
+          fields: {
+            savedBooks: {
+              merge(existing, incoming) {
+                return { ...existing, ...incoming}; 
+              }
+            }
+          }
+        }
+      }
+    }),
   });
 
   return (
